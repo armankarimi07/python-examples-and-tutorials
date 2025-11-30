@@ -1,0 +1,12 @@
+.venv
+.vscode
+.idea
+__pycache__
+*.pyc
+*.db
+*.sqlite3
+media
+uploads
+assets
+dist
+node_modules
