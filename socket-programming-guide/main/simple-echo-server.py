@@ -4,23 +4,24 @@ HOST = "127.0.0.1"  # Standard loopback interface address (localhost)
 PORT = 65432  # Port to listen on (non-privileged ports are > 1023)
 
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+    # AF_INET means use IPv4 (Address family)
+    # SOCK_STREAM means use TCP (Socket type)
     s.bind((HOST, PORT))
     s.listen()
-    conn, addr = s.accept()
+    conn, addr = s.accept() # returns a socket object
+    # different from the socket returned by listen()
     with conn:
         print(f"Connected by {addr}")
         while True:
+            # a blocking call (temporarily stops the execution of code)
             data = conn.recv(1024)
             if not data:
+                # if an empty byte object is returned, signals the client closed the connection
                 break
             conn.sendall(data)
             
 # ------
 # by using 'with context manager', we no longer have to worry about closing the socket
-
-# args provided to socket(): address family and socket type
-# the constant AF_INET -> IPv4
-# SOCK_STREAM -> indicates TCP
 
 # bind() -> to associate the socket with a network interface and port number
 
@@ -37,4 +38,11 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
 # the new socket is distinct from the listening scoket
 
 # blocking calls -> temporarily stop the execution of code until they are done
+
+# server must bind, listen, accept
+# client must connect
+# they both can send and receive
+# three-way handshake must be established
+
+# at the end both server and client close their respective connections.
 
