@@ -10,3 +10,9 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s: # creates a socket 
     data = s.recv(1024) # read server's reply
 
 print(f"Received {data!r}")
+
+
+# Unlike send(), sendall() continues to send data from bytes until either all data has been sent or an error occurs.
+# None is returned on success.
+# (Therefore, we don't have to manually check if the entire data is sent)
+
